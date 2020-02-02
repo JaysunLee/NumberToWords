@@ -14,31 +14,50 @@ namespace NumberToWords
             Console.WriteLine("20 = " + NumberToWords(20));
             Console.WriteLine("33 = " + NumberToWords(33));
             Console.WriteLine("99 = " + NumberToWords(99));
+            Console.WriteLine("100 = " + NumberToWords(100));
+            Console.WriteLine("101 = " + NumberToWords(101));
+            Console.WriteLine("300 = " + NumberToWords(300));
+            Console.WriteLine("313 = " + NumberToWords(313));
+            Console.WriteLine("999 = " + NumberToWords(999));
         }
 
         static string NumberToWords(int number)
         {
-            if (number < 10)
+            string s = string.Empty;
+
+            if (number >= 100)
             {
-                return Ones(number);
+                int hundreds = number / 100;
+                s += Digits(hundreds) + " hundred";
+                number = number % 100;
+                if (number > 0)
+                {
+                    s += " and ";
+                }
             }
-            else if (number < 20)
-            {
-                return Teens(number);
-            }
-            else if (number < 100)
+
+            if (number >= 20)
             {
                 int tens = number / 10;
-                int ones = number % 10;
-                string s = Tens(tens);
-                if (ones > 0)
+                s += Tens(tens);
+                number = number % 10;
+                if (number > 0)
                 {
-                    s += " " + Ones(ones);
+                    s += " ";
                 }
+            }
+            else if (number >= 10)
+            {
+                s += Teens(number);
                 return s;
             }
 
-            return "";
+            if (number > 0)
+            {
+                s += Digits(number);
+            }
+
+            return s;
         }
 
         static string Tens(int num)
@@ -95,7 +114,7 @@ namespace NumberToWords
             }
         }
 
-        static string Ones(int num)
+        static string Digits(int num)
         {
             switch (num)
             {
