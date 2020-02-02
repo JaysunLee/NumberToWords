@@ -46,11 +46,25 @@ namespace NumberToWords
             Console.WriteLine("1,000,000,000 = " + NumberToWords(1000000000));
             
             Console.WriteLine(int.MaxValue.ToString("N0") + " = " + NumberToWords(int.MaxValue));
+            
+            Console.WriteLine("-1 = " + NumberToWords(-1));
+            Console.WriteLine("-77 = " + NumberToWords(-77));
+            Console.WriteLine("-123456789 = " + NumberToWords(-123456789));
         }
         
         static string NumberToWords(int number)
         {
             string s = string.Empty;
+
+            if (number == 0)
+            {
+                return Digits(number);
+            }
+            else if (number < 0)
+            {
+                s += "minus ";
+                number = 0 - number;
+            }
 
             s += NumberToWordsSection(ref number, 1000000000, "billion");
             s += NumberToWordsSection(ref number, 1000000, "million");
