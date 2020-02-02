@@ -11,6 +11,9 @@ namespace NumberToWords
             Console.WriteLine("8 = " + NumberToWords(8));
             Console.WriteLine("10 = " + NumberToWords(10));
             Console.WriteLine("19 = " + NumberToWords(19));
+            Console.WriteLine("20 = " + NumberToWords(20));
+            Console.WriteLine("33 = " + NumberToWords(33));
+            Console.WriteLine("99 = " + NumberToWords(99));
         }
 
         static string NumberToWords(int number)
@@ -23,8 +26,44 @@ namespace NumberToWords
             {
                 return Teens(number);
             }
+            else if (number < 100)
+            {
+                int tens = number / 10;
+                int ones = number % 10;
+                string s = Tens(tens);
+                if (ones > 0)
+                {
+                    s += " " + Ones(ones);
+                }
+                return s;
+            }
 
             return "";
+        }
+
+        static string Tens(int num)
+        {
+            switch (num)
+            {
+                case 2:
+                    return "twenty";
+                case 3:
+                    return "thirty";
+                case 4:
+                    return "forty";
+                case 5:
+                    return "fifty";
+                case 6:
+                    return "sixty";
+                case 7:
+                    return "seventy";
+                case 8:
+                    return "eighty";
+                case 9:
+                    return "ninety";
+                default:
+                    return string.Empty;
+            }
         }
 
         static string Teens(int num)
@@ -81,7 +120,7 @@ namespace NumberToWords
                 case 9:
                     return "nine";
                 default:
-                    throw new ArgumentException();
+                    return string.Empty;
             }
         }
     }
