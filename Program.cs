@@ -19,9 +19,48 @@ namespace NumberToWords
             Console.WriteLine("300 = " + NumberToWords(300));
             Console.WriteLine("313 = " + NumberToWords(313));
             Console.WriteLine("999 = " + NumberToWords(999));
+            Console.WriteLine("1000 = " + NumberToWords(1000));
+            Console.WriteLine("1001 = " + NumberToWords(1001));
+            Console.WriteLine("1234 = " + NumberToWords(1234));
+            Console.WriteLine("3333 = " + NumberToWords(3333));
+            Console.WriteLine("6060 = " + NumberToWords(6060));
+            Console.WriteLine("8800 = " + NumberToWords(8800));
+
+            Console.WriteLine("10000 = " + NumberToWords(10000));
+            Console.WriteLine("10001 = " + NumberToWords(10001));
+            Console.WriteLine("11000 = " + NumberToWords(11000));
+            Console.WriteLine("55555 = " + NumberToWords(55555));
+
+            Console.WriteLine("100000 = " + NumberToWords(100000));
+            Console.WriteLine("100002 = " + NumberToWords(100002));
+            Console.WriteLine("666666 = " + NumberToWords(666666));
+        }
+        
+        static string NumberToWords(int number)
+        {
+            string s = string.Empty;
+
+            if (number >= 1000)
+            {
+                s += NumberToWordsInner(number / 1000);
+                s += " thousand";
+                number = number % 1000;
+                if (number >= 100)
+                {
+                    s += ", ";
+                }
+                else if (number > 0)
+                {
+                    s += " and ";
+                }
+            }
+
+            s += NumberToWordsInner(number);
+
+            return s;
         }
 
-        static string NumberToWords(int number)
+        static string NumberToWordsInner(int number)
         {
             string s = string.Empty;
 
