@@ -42,11 +42,30 @@ namespace NumberToWords
             Console.WriteLine("12345678 = " + NumberToWords(12345678));
             
             Console.WriteLine("123456789 = " + NumberToWords(123456789));
+            
+            Console.WriteLine("1,000,000,000 = " + NumberToWords(1000000000));
+            
+            Console.WriteLine(int.MaxValue.ToString() + " = " + NumberToWords(int.MaxValue));
         }
         
         static string NumberToWords(int number)
         {
             string s = string.Empty;
+
+            if (number >= 1000000000)
+            {
+                s += NumberToWordsInner(number / 1000000000);
+                s += " billion";
+                number = number % 1000000000;
+                if (number >= 100)
+                {
+                    s += ", ";
+                }
+                else if (number > 0)
+                {
+                    s += " and ";
+                }
+            }
 
             if (number >= 1000000)
             {
