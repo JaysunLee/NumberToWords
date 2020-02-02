@@ -34,11 +34,34 @@ namespace NumberToWords
             Console.WriteLine("100000 = " + NumberToWords(100000));
             Console.WriteLine("100002 = " + NumberToWords(100002));
             Console.WriteLine("666666 = " + NumberToWords(666666));
+
+            Console.WriteLine("1000000 = " + NumberToWords(1000000));
+            Console.WriteLine("1000001 = " + NumberToWords(1000001));
+            Console.WriteLine("1234567 = " + NumberToWords(1234567));
+            
+            Console.WriteLine("12345678 = " + NumberToWords(12345678));
+            
+            Console.WriteLine("123456789 = " + NumberToWords(123456789));
         }
         
         static string NumberToWords(int number)
         {
             string s = string.Empty;
+
+            if (number >= 1000000)
+            {
+                s += NumberToWordsInner(number / 1000000);
+                s += " million";
+                number = number % 1000000;
+                if (number >= 100)
+                {
+                    s += ", ";
+                }
+                else if (number > 0)
+                {
+                    s += " and ";
+                }
+            }
 
             if (number >= 1000)
             {
