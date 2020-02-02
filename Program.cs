@@ -45,59 +45,40 @@ namespace NumberToWords
             
             Console.WriteLine("1,000,000,000 = " + NumberToWords(1000000000));
             
-            Console.WriteLine(int.MaxValue.ToString() + " = " + NumberToWords(int.MaxValue));
+            Console.WriteLine(int.MaxValue.ToString("N0") + " = " + NumberToWords(int.MaxValue));
         }
         
         static string NumberToWords(int number)
         {
             string s = string.Empty;
 
-            if (number >= 1000000000)
-            {
-                s += NumberToWordsInner(number / 1000000000);
-                s += " billion";
-                number = number % 1000000000;
-                if (number >= 100)
-                {
-                    s += ", ";
-                }
-                else if (number > 0)
-                {
-                    s += " and ";
-                }
-            }
-
-            if (number >= 1000000)
-            {
-                s += NumberToWordsInner(number / 1000000);
-                s += " million";
-                number = number % 1000000;
-                if (number >= 100)
-                {
-                    s += ", ";
-                }
-                else if (number > 0)
-                {
-                    s += " and ";
-                }
-            }
-
-            if (number >= 1000)
-            {
-                s += NumberToWordsInner(number / 1000);
-                s += " thousand";
-                number = number % 1000;
-                if (number >= 100)
-                {
-                    s += ", ";
-                }
-                else if (number > 0)
-                {
-                    s += " and ";
-                }
-            }
-
+            s += NumberToWordsSection(ref number, 1000000000, "billion");
+            s += NumberToWordsSection(ref number, 1000000, "million");
+            s += NumberToWordsSection(ref number, 1000, "thousand");
             s += NumberToWordsInner(number);
+
+            return s;
+        }
+
+        static string NumberToWordsSection(ref int number, int section, string sectionLabel)
+        {
+            string s = string.Empty;
+
+            if (number >= section)
+            {
+                s += NumberToWordsInner(number / section);
+                s += " " + sectionLabel;
+                
+                number = number % section;
+                if (number >= 100)
+                {
+                    s += ", ";
+                }
+                else if (number > 0)
+                {
+                    s += " and ";
+                }
+            }
 
             return s;
         }
